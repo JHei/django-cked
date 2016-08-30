@@ -97,8 +97,8 @@ class connector():
     }
 
     _fileoptions = {
-		'fileMode': '0644',
-        'dirMode': '0755',
+	'fileMode': 0644,
+        'dirMode': 0755,
     }
 
     _time = 0
@@ -346,7 +346,7 @@ class connector():
             self._response['error'] = 'File or folder with the same name already exists'
         else:
             try:
-                os.mkdir(newDir, int(self._fileoptions['dirMode']))
+                os.mkdir(newDir, self._fileoptions['dirMode'])
                 self._response['select'] = [self.__hash(newDir)]
                 self.__content(path, True)
             except:
@@ -452,7 +452,7 @@ class connector():
                             f.close()
                             upSize += os.lstat(name).st_size
                             if self.__isUploadAllow(name):
-                                os.chmod(name, int(self._options['fileMode']))
+                                os.chmod(name, self._options['fileMode'])
                                 self._response['select'].append(self.__hash(name, True))
                             else:
                                 self.__errorData(name, 'Not allowed file type')
